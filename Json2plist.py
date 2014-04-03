@@ -1,14 +1,12 @@
+
+
 import sublime, sublime_plugin
 import os
 import subprocess
 import thread
 import sys
-default_encoding = 'utf-8'
-if sys.getdefaultencoding() != default_encoding:
-    reload(sys)
-    sys.setdefaultencoding(default_encoding)
-
-
+ 
+ 
 
 PLUGIN_DIRECTORY = os.getcwd().replace(os.path.normpath(os.path.join(os.getcwd(), '..', '..')) + os.path.sep, '').replace(os.path.sep, '/')
 PLUGIN_PATH = os.getcwd().replace(os.path.join(os.getcwd(), '..', '..') + os.path.sep, '').replace(os.path.sep, '/')
@@ -19,7 +17,7 @@ class ConvertJsonCommand(sublime_plugin.WindowCommand):
 		jsPath=os.path.join(PLUGIN_PATH,"converter.js")
 		cmdStr="node "+"\""+jsPath+"\""+" \""+path+"\""
 		proce = subprocess.Popen(cmdStr ,shell=True,stdout=subprocess.PIPE)
-		output=proce.communicate()[0]
+		output=proce.communicate()[0].decode("utf-8")
 		print cmdStr
 		newView=self.window.new_file()
 		newView.set_syntax_file("Packages/XML/XML.tmLanguage")
